@@ -34,12 +34,44 @@
         .container {
             padding: 20px;
         }
-        .welcome, .about, .labs {
+        .welcome, .about, .lab-content {
             background: white;
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             margin: 20px 0;
+        }
+        .tab {
+            display: flex; /* Align tabs horizontally */
+            border: 1px solid #ccc;
+            background-color: #e7e7e7; /* Light gray background */
+            margin: 20px 0;
+        }
+        .tab button {
+            flex: 1; /* Make buttons take equal width */
+            background-color: inherit;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 10px; /* Adjusted padding for smaller tabs */
+            transition: 0.3s;
+            font-size: 15px; /* Smaller font size */
+            color: #333; /* Darker text color */
+        }
+        .tab button:hover {
+            background-color: #ddd; /* Light gray on hover */
+        }
+        .tab button.active {
+            background-color: #4CAF50; /* Active tab color */
+            color: white; /* White text for active tab */
+        }
+        .tabcontent {
+            display: none;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-top: none;
+            background: white;
+            margin-top: -1px;
         }
         input[type="text"], input[type="password"], input[type="email"], textarea, select {
             width: 100%;
@@ -59,35 +91,6 @@
         }
         button:hover {
             background-color: #45a049;
-        }
-        .course-field {
-            display: flex;
-            justify-content: space-between;
-        }
-        .course-field label {
-            flex: 1;
-            margin-right: 10px;
-        }
-        .course-details {
-            margin: 10px 0;
-        }
-        .bold {
-            font-weight: bold;
-        }
-        .lab {
-            margin-top: 20px;
-            cursor: pointer;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        .lab:hover {
-            background-color: #f0f0f0;
-        }
-        .lab-content {
-            display: none;
-            margin-top: 20px;
         }
     </style>
 </head>
@@ -121,60 +124,68 @@
     <div id="labs" class="section" style="display:none;">
         <div class="labs">
             <h2>Lab Exercises</h2>
-            <div class="lab" onclick="toggleLab('lab1Content')">
-                <h3>Lab 1: Manage Courses</h3>
-            </div>
-            <div id="lab1Content" class="lab-content">
-                <div class="course-management">
-                    <h2>Manage Courses</h2>
-                    <form id="courseForm">
-                        <div class="course-field">
-                            <label for="courseId">Course ID:</label>
-                            <input type="text" id="courseId" name="courseId" readonly>
-                        </div>
-                        <div class="course-field">
-                            <label for="courseName">Course Name:</label>
-                            <input type="text" id="courseName" name="courseName" required maxlength="255">
-                        </div>
-                        <div class="course-field">
-                            <label for="courseDescription">Course Description:</label>
-                            <textarea id="courseDescription" name="courseDescription" rows="4"></textarea>
-                        </div>
-                        <div class="course-field">
-                            <label for="instructor">Instructor:</label>
-                            <select id="instructor" name="instructor" required>
-                                <option value="">Select an instructor</option>
-                                <option value="1">Instructor A</option>
-                                <option value="2">Instructor B</option>
-                            </select>
-                        </div>
-                        <div class="course-details">
-                            <p>Created At: <span id="createdAt"></span></p>
-                        </div>
-                        <button type="submit">Create Course</button>
-                        <button type="button" onclick="deleteCourse()">Delete Course</button>
-                    </form>
-                </div>
+            <div class="tab">
+                <button class="tablinks" onclick="openLab(event, 'lab1Content')">Lab 1: Manage Courses</button>
+                <button class="tablinks" onclick="openLab(event, 'lab2Content')">Lab 2: Authentication</button>
+                <button class="tablinks" onclick="openLab(event, 'lab3Content')">Lab 3</button>
+                <button class="tablinks" onclick="openLab(event, 'lab4Content')">Lab 4</button>
             </div>
 
-            <div class="lab" onclick="toggleLab('lab2Content')">
-                <h3>Lab 2</h3>
-            </div>
-            <div id="lab2Content" class="lab-content">
-                <p>This lab is currently empty and can be updated later.</p>
+            <div id="lab1Content" class="tabcontent">
+                <h3>Manage Courses</h3>
+                <form id="courseForm">
+                    <div class="course-field">
+                        <label for="courseId">Course ID:</label>
+                        <input type="text" id="courseId" name="courseId" readonly>
+                    </div>
+                    <div class="course-field">
+                        <label for="courseName">Course Name:</label>
+                        <input type="text" id="courseName" name="courseName" required maxlength="255">
+                    </div>
+                    <div class="course-field">
+                        <label for="courseDescription">Course Description:</label>
+                        <textarea id="courseDescription" name="courseDescription" rows="4"></textarea>
+                    </div>
+                    <div class="course-field">
+                        <label for="instructor">Instructor:</label>
+                        <select id="instructor" name="instructor" required>
+                            <option value="">Select an instructor</option>
+                            <option value="1">Instructor A</option>
+                            <option value="2">Instructor B</option>
+                        </select>
+                    </div>
+                    <div class="course-details">
+                        <p>Created At: <span id="createdAt"></span></p>
+                    </div>
+                    <button type="submit">Create Course</button>
+                    <button type="button" onclick="deleteCourse()">Delete Course</button>
+                </form>
             </div>
 
-            <div class="lab" onclick="toggleLab('lab3Content')">
+            <div id="lab2Content" class="tabcontent">
+                <h3>Authentication</h3>
+                <form id="loginForm">
+                    <div class="course-field">
+                        <label for="username">Username/Email:</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    <div class="course-field">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <button type="submit">Login</button>
+                    <a href="#" style="display: block; margin-top: 10px;">Forgot Password?</a>
+                </form>
+                <p style="margin-top: 20px;">Simple, clean, and secure login screen.</p>
+            </div>
+
+            <div id="lab3Content" class="tabcontent">
                 <h3>Lab 3</h3>
-            </div>
-            <div id="lab3Content" class="lab-content">
                 <p>This lab is currently empty and can be updated later.</p>
             </div>
 
-            <div class="lab" onclick="toggleLab('lab4Content')">
+            <div id="lab4Content" class="tabcontent">
                 <h3>Lab 4</h3>
-            </div>
-            <div id="lab4Content" class="lab-content">
                 <p>This lab is currently empty and can be updated later.</p>
             </div>
         </div>
@@ -190,14 +201,22 @@
         document.getElementById(section).style.display = 'block'; // Show selected section
     }
 
-    function toggleLab(labId) {
-        const labContent = document.getElementById(labId);
-        labContent.style.display = labContent.style.display === 'block' ? 'none' : 'block'; // Toggle visibility
+    function openLab(evt, labName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none"; // Hide all tab contents
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(labName).style.display = "block"; // Show current tab content
+        evt.currentTarget.className += " active"; // Add active class to the button
     }
 
     function deleteCourse() {
         if (confirm("Are you sure you want to delete this course?")) {
-            // Logic to delete the course
             alert("Course deleted.");
         }
     }
