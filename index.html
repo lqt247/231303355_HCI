@@ -12,7 +12,7 @@
             background-color: #f4f4f4;
         }
         header {
-            background-color: #4CAF50; /* Dark Green */
+            background-color: #4CAF50; 
             color: white;
             padding: 1rem;
             text-align: center;
@@ -30,17 +30,17 @@
             color: white;
             margin: 0 15px;
             text-decoration: none;
-            padding: 10px;
+            padding: 10px 15px;
             border-radius: 4px;
+            transition: background-color 0.3s;
         }
         nav a.active {
-            background-color: #4CAF50; /* Active tab color */
-            color: white; /* White text for active tab */
+            background-color: #4CAF50; 
         }
         .container {
             padding: 20px;
         }
-        .welcome, .about, .lab-content {
+        .section, .tabcontent, .dashboard {
             background: white;
             padding: 20px;
             border-radius: 5px;
@@ -48,37 +48,28 @@
             margin: 20px 0;
         }
         .tab {
-            display: flex; /* Align tabs horizontally */
+            display: flex; 
             border: 1px solid #ccc;
-            background-color: #e7e7e7; /* Light gray background */
+            background-color: #e7e7e7; 
             margin: 20px 0;
         }
         .tab button {
-            flex: 1; /* Make buttons take equal width */
-            background-color: inherit;
+            flex: 1; 
+            padding: 10px;
             border: none;
             outline: none;
             cursor: pointer;
-            padding: 10px; /* Adjusted padding for smaller tabs */
-            transition: 0.3s;
-            font-size: 15px; /* Smaller font size */
-            color: #333; /* Darker text color */
+            transition: background-color 0.3s;
+            font-size: 16px;
         }
         .tab button:hover {
-            background-color: #ddd; /* Light gray on hover */
+            background-color: #ddd; 
         }
         .tab button.active {
-            background-color: #4CAF50; /* Active tab color */
-            color: white; /* White text for active tab */
+            background-color: #4CAF50; 
+            color: white; 
         }
-        .tabcontent {
-            display: none;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-top: none;
-            background: white;
-            margin-top: -1px;
-        }
+        /* Additional styling for forms and buttons */
         input[type="text"], input[type="password"], input[type="email"], textarea, select {
             width: 100%;
             padding: 10px;
@@ -98,6 +89,13 @@
         button:hover {
             background-color: #45a049;
         }
+        .course-field {
+            margin-bottom: 20px;
+        }
+        .readonly {
+            background-color: #f9f9f9;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
@@ -110,6 +108,7 @@
     <a href="#home" onclick="showSection('home', this)">Home</a>
     <a href="#about" onclick="showSection('about', this)">About</a>
     <a href="#labs" onclick="showSection('labs', this)">Labs</a>
+    <a href="#dashboard" id="dashboardLink" onclick="showSection('dashboard', this)" style="display:none;">Dashboard</a>
 </nav>
 
 <div class="container">
@@ -131,18 +130,18 @@
         <div class="labs">
             <h2>Lab Exercises</h2>
             <div class="tab">
-                <button class="tablinks" onclick="openLab(event, 'lab1Content')">Lab 1: Manage Courses</button>
+                <button class="tablinks" onclick="openLab(event, 'lab1Content')">Lab 1: UI Design</button>
                 <button class="tablinks" onclick="openLab(event, 'lab2Content')">Lab 2: Authentication</button>
                 <button class="tablinks" onclick="openLab(event, 'lab3Content')">Lab 3</button>
                 <button class="tablinks" onclick="openLab(event, 'lab4Content')">Lab 4</button>
             </div>
 
             <div id="lab1Content" class="tabcontent">
-                <h3>Manage Courses</h3>
-                <form id="courseForm">
+                <h3>User Interface Design for Course Management</h3>
+                <form id="courseForm" onsubmit="return createCourse(event)">
                     <div class="course-field">
                         <label for="courseId">Course ID:</label>
-                        <input type="text" id="courseId" name="courseId" readonly>
+                        <input type="text" id="courseId" name="courseId" readonly class="readonly">
                     </div>
                     <div class="course-field">
                         <label for="courseName">Course Name:</label>
@@ -162,6 +161,7 @@
                     </div>
                     <div class="course-details">
                         <p>Created At: <span id="createdAt"></span></p>
+                        <p>Last Updated: <span id="updatedAt"></span></p>
                     </div>
                     <button type="submit">Create Course</button>
                     <button type="button" onclick="deleteCourse()">Delete Course</button>
@@ -170,7 +170,7 @@
 
             <div id="lab2Content" class="tabcontent">
                 <h3>Authentication</h3>
-                <form id="loginForm">
+                <form id="loginForm" onsubmit="return loginUser(event)">
                     <div class="course-field">
                         <label for="username">Username/Email:</label>
                         <input type="text" id="username" name="username" required>
@@ -196,36 +196,63 @@
             </div>
         </div>
     </div>
+
+    <div id="dashboard" class="section" style="display:none;">
+        <h2>Dashboard</h2>
+        <div id="exerciseContainer">
+            <h3>Available Exercises</h3>
+            <div>
+                <label for="languageFilter">Filter by Language:</label>
+                <select id="languageFilter" onchange="filterExercises()">
+                    <option value="all">All</option>
+                    <option value="C">C</option>
+                    <option value="Python">Python</option>
+                    <option value="Java">Java</option>
+                </select>
+            </div>
+            <div id="exercises">
+                <!-- Exercises will be dynamically populated here -->
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
+    const exercises = [
+        { title: "Exercise 1", description: "Basic C program", language: "C", difficulty: "Easy", status: "Not Started" },
+        { title: "Exercise 2", description: "Python Data Structures", language: "Python", difficulty: "Medium", status: "In Progress" },
+        { title: "Exercise 3", description: "Java Basics", language: "Java", difficulty: "Easy", status: "Completed" }
+    ];
+
     function showSection(section, link) {
         const sections = document.querySelectorAll('.section');
-        sections.forEach(sec => {
-            sec.style.display = 'none'; // Hide all sections
-        });
-        document.getElementById(section).style.display = 'block'; // Show selected section
-        
-        // Remove active class from all links
+        sections.forEach(sec => sec.style.display = 'none');
+        document.getElementById(section).style.display = 'block';
+
         const navLinks = document.querySelectorAll('nav a');
         navLinks.forEach(nav => nav.classList.remove('active'));
-
-        // Add active class to the clicked link
         link.classList.add('active');
+
+        if (section === 'dashboard') {
+            populateExercises();
+        }
     }
 
     function openLab(evt, labName) {
-        var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none"; // Hide all tab contents
-        }
-        tablinks = document.getElementsByClassName("tablinks");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
-        document.getElementById(labName).style.display = "block"; // Show current tab content
-        evt.currentTarget.className += " active"; // Add active class to the button
+        const tabcontent = document.getElementsByClassName("tabcontent");
+        Array.from(tabcontent).forEach(tab => tab.style.display = "none");
+
+        const tablinks = document.getElementsByClassName("tablinks");
+        Array.from(tablinks).forEach(link => link.classList.remove("active"));
+
+        document.getElementById(labName).style.display = "block";
+        evt.currentTarget.classList.add("active");
+    }
+
+    function createCourse(event) {
+        event.preventDefault();
+        // Logic for creating a course
+        alert("Course created successfully!");
     }
 
     function deleteCourse() {
@@ -234,9 +261,39 @@
         }
     }
 
-    // Sample data for course management
-    document.getElementById('courseId').value = 'C123'; // Auto-generated
-    document.getElementById('createdAt').innerText = new Date().toLocaleString(); // Auto-generated
+    function loginUser(event) {
+        event.preventDefault();
+        // Logic for authenticating a user
+        document.getElementById('dashboardLink').style.display = 'block';
+        showSection('dashboard', document.getElementById('dashboardLink'));
+    }
+
+    function populateExercises() {
+        const exercisesDiv = document.getElementById('exercises');
+        exercisesDiv.innerHTML = '';
+        exercises.forEach(exercise => {
+            const div = document.createElement('div');
+            div.innerHTML = `<strong>${exercise.title}</strong> - ${exercise.description} (${exercise.language}, ${exercise.difficulty}) - Status: ${exercise.status}`;
+            exercisesDiv.appendChild(div);
+        });
+    }
+
+    function filterExercises() {
+        const filter = document.getElementById('languageFilter').value;
+        const exercisesDiv = document.getElementById('exercises');
+        exercisesDiv.innerHTML = '';
+        const filteredExercises = exercises.filter(ex => filter === 'all' || ex.language === filter);
+        filteredExercises.forEach(exercise => {
+            const div = document.createElement('div');
+            div.innerHTML = `<strong>${exercise.title}</strong> - ${exercise.description} (${exercise.language}, ${exercise.difficulty}) - Status: ${exercise.status}`;
+            exercisesDiv.appendChild(div);
+        });
+    }
+
+    // Auto-generate values for demo purposes
+    document.getElementById('courseId').value = 'C123'; // Example auto-generated Course ID
+    document.getElementById('createdAt').innerText = new Date().toLocaleString();
+    document.getElementById('updatedAt').innerText = new Date().toLocaleString();
 </script>
 
 </body>
