@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #4CAF50; /* Dark Green */
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        nav {
+            background-color: #333;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        .container {
+            padding: 20px;
+        }
+        .welcome, .about, .labs {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+        }
+        input[type="text"], input[type="password"], input[type="email"], textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .course-field {
+            display: flex;
+            justify-content: space-between;
+        }
+        .course-field label {
+            flex: 1;
+            margin-right: 10px;
+        }
+        .course-details {
+            margin: 10px 0;
+        }
+        .bold {
+            font-weight: bold;
+        }
+        .lab {
+            margin-top: 20px;
+            cursor: pointer;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .lab:hover {
+            background-color: #f0f0f0;
+        }
+        .lab-content {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Course Management System</h1>
+</header>
+
+<nav>
+    <a href="#home" onclick="showSection('home')">Home</a>
+    <a href="#about" onclick="showSection('about')">About</a>
+    <a href="#labs" onclick="showSection('labs')">Labs</a>
+</nav>
+
+<div class="container">
+    <div id="home" class="section">
+        <div class="welcome">
+            <h2>Welcome to Your Personal Course Management System!</h2>
+            <p>Hi, I'm Lê Quang Trường! This is your dedicated space for managing your courses.</p>
+        </div>
+    </div>
+
+    <div id="about" class="section" style="display:none;">
+        <div class="about">
+            <h2>About Me</h2>
+            <p class="bold">Lê Quang Trường - 23130355 - DH23DTB</p>
+        </div>
+    </div>
+
+    <div id="labs" class="section" style="display:none;">
+        <div class="labs">
+            <h2>Lab Exercises</h2>
+            <div class="lab" onclick="toggleLab('lab1Content')">
+                <h3>Lab 1: Manage Courses</h3>
+            </div>
+            <div id="lab1Content" class="lab-content">
+                <div class="course-management">
+                    <h2>Manage Courses</h2>
+                    <form id="courseForm">
+                        <div class="course-field">
+                            <label for="courseId">Course ID:</label>
+                            <input type="text" id="courseId" name="courseId" readonly>
+                        </div>
+                        <div class="course-field">
+                            <label for="courseName">Course Name:</label>
+                            <input type="text" id="courseName" name="courseName" required maxlength="255">
+                        </div>
+                        <div class="course-field">
+                            <label for="courseDescription">Course Description:</label>
+                            <textarea id="courseDescription" name="courseDescription" rows="4"></textarea>
+                        </div>
+                        <div class="course-field">
+                            <label for="instructor">Instructor:</label>
+                            <select id="instructor" name="instructor" required>
+                                <option value="">Select an instructor</option>
+                                <option value="1">Instructor A</option>
+                                <option value="2">Instructor B</option>
+                            </select>
+                        </div>
+                        <div class="course-details">
+                            <p>Created At: <span id="createdAt"></span></p>
+                        </div>
+                        <button type="submit">Create Course</button>
+                        <button type="button" onclick="deleteCourse()">Delete Course</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="lab" onclick="toggleLab('lab2Content')">
+                <h3>Lab 2</h3>
+            </div>
+            <div id="lab2Content" class="lab-content">
+                <p>This lab is currently empty and can be updated later.</p>
+            </div>
+
+            <div class="lab" onclick="toggleLab('lab3Content')">
+                <h3>Lab 3</h3>
+            </div>
+            <div id="lab3Content" class="lab-content">
+                <p>This lab is currently empty and can be updated later.</p>
+            </div>
+
+            <div class="lab" onclick="toggleLab('lab4Content')">
+                <h3>Lab 4</h3>
+            </div>
+            <div id="lab4Content" class="lab-content">
+                <p>This lab is currently empty and can be updated later.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showSection(section) {
+        const sections = document.querySelectorAll('.section');
+        sections.forEach(sec => {
+            sec.style.display = 'none'; // Hide all sections
+        });
+        document.getElementById(section).style.display = 'block'; // Show selected section
+    }
+
+    function toggleLab(labId) {
+        const labContent = document.getElementById(labId);
+        labContent.style.display = labContent.style.display === 'block' ? 'none' : 'block'; // Toggle visibility
+    }
+
+    function deleteCourse() {
+        if (confirm("Are you sure you want to delete this course?")) {
+            // Logic to delete the course
+            alert("Course deleted.");
+        }
+    }
+
+    // Sample data for course management
+    document.getElementById('courseId').value = 'C123'; // Auto-generated
+    document.getElementById('createdAt').innerText = new Date().toLocaleString(); // Auto-generated
+</script>
+
+</body>
+</html>
