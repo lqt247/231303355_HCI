@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -105,12 +105,18 @@
         }
 
         .material {
-            background-color: #2e7d32; /* Dark green */
+            background-color: #4CAF50; /* Change to a softer green */
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             text-align: center;
             color: white;
+            transition: background-color 0.3s, transform 0.3s; /* Added transition for smooth effects */
+        }
+
+        .material:hover {
+            background-color: #66BB6A; /* Lighter green on hover */
+            transform: translateY(-2px); /* Slightly lift the material on hover */
         }
 
         .icon {
@@ -135,6 +141,34 @@
 
         .view-button:hover {
             background-color: #43a047; /* Slightly darker green */
+        }
+
+        /* Exercise list styling */
+        .exercise-list {
+            margin-top: 20px;
+        }
+
+        .exercise {
+            background-color: #f9f9f9; 
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+        }
+
+        .exercise h4 {
+            margin: 0 0 10px;
+        }
+
+        .filter {
+            margin: 10px 0;
+        }
+
+        .code-editor {
+            margin-top: 20px;
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 5px;
         }
 
     </style>
@@ -214,7 +248,7 @@
                 <h3>Lab 2: Authentication</h3>
                 <form id="loginForm" onsubmit="return loginUser(event)">
                     <div class="course-field">
-                        <label for="username">Username/Email:</label>
+                        <label for="username">Username:</label>
                         <input type="text" id="username" name="username" required>
                     </div>
                     <div class="course-field">
@@ -222,8 +256,39 @@
                         <input type="password" id="password" name="password" required>
                     </div>
                     <button type="submit">Login</button>
-                    <a href="#" style="display: block; margin-top: 10px;">Forgot Password?</a>
-                </form>              
+                </form>
+                <div id="exerciseDashboard" style="display:none;">
+                    <h3>Your Exercises</h3>
+                    <div class="filter">
+                        <label for="languageFilter">Filter by Language:</label>
+                        <select id="languageFilter" onchange="filterExercises()">
+                            <option value="all">All</option>
+                            <option value="C">C</option>
+                            <option value="Python">Python</option>
+                            <option value="Java">Java</option>
+                        </select>
+                    </div>
+                    <div class="exercise-list" id="exerciseList">
+                        <div class="exercise" data-language="C">
+                            <h4>Exercise 1: C Basics</h4>
+                            <p>A short description of the exercise.</p>
+                            <p>Difficulty: Easy | Time Limit: 30 mins | Points: 10</p>
+                            <button onclick="selectExercise('Exercise 1: C Basics')">Select</button>
+                        </div>
+                        <div class="exercise" data-language="Python">
+                            <h4>Exercise 2: Python Functions</h4>
+                            <p>A short description of the exercise.</p>
+                            <p>Difficulty: Medium | Time Limit: 45 mins | Points: 15</p>
+                            <button onclick="selectExercise('Exercise 2: Python Functions')">Select</button>
+                        </div>
+                        <div class="exercise" data-language="Java">
+                            <h4>Exercise 3: Java OOP</h4>
+                            <p>A short description of the exercise.</p>
+                            <p>Difficulty: Hard | Time Limit: 60 mins | Points: 20</p>
+                            <button onclick="selectExercise('Exercise 3: Java OOP')">Select</button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div id="lab3Content" class="tabcontent" style="display:none;">
@@ -231,116 +296,175 @@
                 <div class="material-grid">
                     <div class="material">
                         <div class="icon">📘</div>
-                        <h2>All about Django Python</h2>
-                        <button class="view-button" onclick="viewMaterial('Django Python')">View Materials</button>
+                        <h2>HTML & CSS Basics</h2>
+                        <button class="view-button">View</button>
                     </div>
                     <div class="material">
-                        <div class="icon">📘</div>
-                        <h2>Data Structures</h2>
-                        <button class="view-button" onclick="viewMaterial('Data Structures')">View Materials</button>
+                        <div class="icon">📚</div>
+                        <h2>Learning React</h2>
+                        <button class="view-button">View</button>
                     </div>
                     <div class="material">
-                        <div class="icon">📘</div>
-                        <h2>Hibernate</h2>
-                        <button class="view-button" onclick="viewMaterial('Hibernate')">View Materials</button>
+                        <div class="icon">📗</div>
+                        <h2>Introduction to JavaScript</h2>
+                        <button class="view-button">View</button>
                     </div>
                     <div class="material">
-                        <div class="icon">📘</div>
-                        <h2>Java Mock Project</h2>
-                        <button class="view-button" onclick="viewMaterial('Java Mock Project')">View Materials</button>
+                        <div class="icon">📙</div>
+                        <h2>Advanced CSS Techniques</h2>
+                        <button class="view-button">View</button>
                     </div>
                     <div class="material">
-                        <div class="icon">📘</div>
-                        <h2>Java Programming Language</h2>
-                        <button class="view-button" onclick="viewMaterial('Java Programming Language')">View Materials</button>
+                        <div class="icon">📒</div>
+                        <h2>Node.js Essentials</h2>
+                        <button class="view-button">View</button>
                     </div>
                     <div class="material">
-                        <div class="icon">📘</div>
-                        <h2>Java Spring Framework</h2>
-                        <button class="view-button" onclick="viewMaterial('Java Spring Framework')">View Materials</button>
+                        <div class="icon">📕</div>
+                        <h2>Introduction to TypeScript</h2>
+                        <button class="view-button">View</button>
                     </div>
                 </div>
             </div>
 
             <div id="lab4Content" class="tabcontent" style="display:none;">
-                <h3>Lab 4: TBD</h3>
+                <h3>Lab 4: Final Project</h3>
+                <p>Details about the final project will be provided here.</p>
             </div>
         </div>
     </div>
 
-    <div id="dashboard" class="dashboard" style="display:none;">
-        <h2>Dashboard</h2>
-        <p>This is your personalized dashboard. Here you will see the overview of your progress.</p>
+    <div id="dashboard" class="section" style="display:none;">
+        <h2>Your Dashboard</h2>
+        <p>Here you can manage your courses, view your materials, and track your progress.</p>
+        <div id="exerciseDetails" class="code-editor" style="display:none;">
+            <h3 id="selectedExerciseTitle"></h3>
+            <p id="selectedExerciseDescription"></p>
+            <textarea id="codeEditor" rows="10" placeholder="Write your code here..."></textarea>
+            <button onclick="runCode()">Run Code</button>
+            <button onclick="clearCode()">Clear Code</button>
+            <button onclick="submitCode()">Submit</button>
+            <div id="submissionResult" style="display:none;">
+                <h4>Submission Results</h4>
+                <p>Status: <span id="submissionStatus"></span></p>
+                <div id="testCases"></div>
+                <p>Score: <span id="score"></span></p>
+            </div>
+            <button onclick="tryAgain()">Try Again</button>
+            <button onclick="returnToDashboard()">Return to Dashboard</button>
+        </div>
     </div>
 </div>
 
 <script>
-    // Function to show/hide different sections
-    function showSection(section, link) {
+    function showSection(sectionId, element) {
         const sections = document.querySelectorAll('.section');
-        sections.forEach(sec => sec.style.display = 'none');
-        
-        document.getElementById(section).style.display = 'block';
+        sections.forEach(section => {
+            section.style.display = 'none';
+        });
+        document.getElementById(sectionId).style.display = 'block';
 
-        const links = document.querySelectorAll('nav a');
-        links.forEach(lnk => lnk.classList.remove('active'));
-        
-        link.classList.add('active');
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+        });
+        element.classList.add('active');
     }
 
-    // Lab tab functionality
-    function openLab(evt, labContentId) {
-        const tabcontents = document.querySelectorAll('.tabcontent');
-        tabcontents.forEach(tab => tab.style.display = 'none');
-
+    function openLab(evt, labName) {
+        const tabcontent = document.querySelectorAll('.tabcontent');
+        tabcontent.forEach(content => {
+            content.style.display = 'none';
+        });
         const tablinks = document.querySelectorAll('.tab button');
-        tablinks.forEach(tab => tab.classList.remove('active'));
-
-        document.getElementById(labContentId).style.display = 'block';
+        tablinks.forEach(link => {
+            link.classList.remove('active');
+        });
+        document.getElementById(labName).style.display = 'block';
         evt.currentTarget.classList.add('active');
     }
 
-    // Function to show materials for lab3
-    function viewMaterial(materialName) {
-        alert("You clicked to view materials for " + materialName);
-    }
-
-    // Example function for Lab 1 form submission
     function createCourse(event) {
-        event.preventDefault();
-        const courseId = document.getElementById('courseId').value;
-        const courseName = document.getElementById('courseName').value;
-        const courseDescription = document.getElementById('courseDescription').value;
-        const instructor = document.getElementById('instructor').value;
-
-        const createdAt = new Date().toLocaleString();
-        const updatedAt = new Date().toLocaleString();
+        event.preventDefault(); 
+        const messageDiv = document.getElementById('courseMessage');
+        const now = new Date();
+        const createdAt = now.toLocaleString();
+        const updatedAt = now.toLocaleString();
 
         document.getElementById('createdAt').innerText = createdAt;
         document.getElementById('updatedAt').innerText = updatedAt;
 
-        document.getElementById('courseMessage').style.display = 'block';
-        document.getElementById('courseMessage').innerText = `Course created: ${courseName} by Instructor ${instructor}`;
+        messageDiv.style.display = 'block';
+        messageDiv.innerText = 'Course created successfully!'; 
+        return false; 
+    }
 
-        return false;
+    function loginUser(event) {
+        event.preventDefault(); 
+        alert('Login successful!'); 
+        document.getElementById('exerciseDashboard').style.display = 'block';
+        document.getElementById('dashboardLink').style.display = 'block';
+        showSection('dashboard', document.getElementById('dashboardLink'));
+        return false; 
+    }
+
+    function selectExercise(title) {
+        const exerciseDetails = document.getElementById('exerciseDetails');
+        exerciseDetails.style.display = 'block';
+        document.getElementById('selectedExerciseTitle').innerText = title;
+        document.getElementById('selectedExerciseDescription').innerText = "This is a detailed description for " + title + ".";
+    }
+
+    function runCode() {
+        // Simulate running the code and getting results
+        const output = "Hello World"; // Placeholder for actual code output
+        const status = "Success"; // Placeholder for submission status
+        document.getElementById('submissionStatus').innerText = status;
+        document.getElementById('testCases').innerHTML = `
+            <p>Test Case 1:</p>
+            <p>Input: 1</p>
+            <p>Expected Output: 1</p>
+            <p>Actual Output: ${output}</p>
+            <p>Status: Passed</p>
+        `;
+        document.getElementById('score').innerText = "10/10"; // Placeholder for score
+        document.getElementById('submissionResult').style.display = 'block';
+    }
+
+    function clearCode() {
+        document.getElementById('codeEditor').value = "";
+    }
+
+    function submitCode() {
+        alert('Code submitted successfully!');
+    }
+
+    function tryAgain() {
+        document.getElementById('submissionResult').style.display = 'none';
+        document.getElementById('exerciseDetails').style.display = 'block';
+    }
+
+    function returnToDashboard() {
+        showSection('dashboard', document.getElementById('dashboardLink'));
+        document.getElementById('exerciseDetails').style.display = 'none';
     }
 
     function deleteCourse() {
-        if (confirm('Are you sure you want to delete the course?')) {
-            document.getElementById('courseForm').reset();
-            document.getElementById('courseMessage').style.display = 'none';
-        }
+        const messageDiv = document.getElementById('courseMessage');
+        messageDiv.style.display = 'block';
+        messageDiv.innerText = 'Course deleted successfully!'; 
     }
 
-    // Example login function for Lab 2
-    function loginUser(event) {
-        event.preventDefault();
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
-
-        alert(`Logging in as: ${username}`);
-        document.getElementById('dashboardLink').style.display = 'inline-block';
-        return false;
+    function filterExercises() {
+        const filter = document.getElementById('languageFilter').value;
+        const exercises = document.querySelectorAll('.exercise');
+        exercises.forEach(exercise => {
+            if (filter === 'all' || exercise.dataset.language === filter) {
+                exercise.style.display = 'block';
+            } else {
+                exercise.style.display = 'none';
+            }
+        });
     }
 </script>
 
