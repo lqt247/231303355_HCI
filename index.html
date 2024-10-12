@@ -141,7 +141,7 @@
                 <form id="courseForm" onsubmit="return createCourse(event)">
                     <div class="course-field">
                         <label for="courseId">Course ID:</label>
-                        <input type="text" id="courseId" name="courseId" readonly class="readonly">
+                        <input type="text" id="courseId" name="courseId" required>
                     </div>
                     <div class="course-field">
                         <label for="courseName">Course Name:</label>
@@ -149,7 +149,7 @@
                     </div>
                     <div class="course-field">
                         <label for="courseDescription">Course Description:</label>
-                        <textarea id="courseDescription" name="courseDescription" rows="4"></textarea>
+                        <textarea id="courseDescription" name="courseDescription" rows="4" required></textarea>
                     </div>
                     <div class="course-field">
                         <label for="instructor">Instructor:</label>
@@ -166,6 +166,7 @@
                     <button type="submit">Create Course</button>
                     <button type="button" onclick="deleteCourse()">Delete Course</button>
                 </form>
+                <div id="courseMessage" style="margin-top: 20px; display:none;"></div>
             </div>
 
             <div id="lab2Content" class="tabcontent" style="display:none;">
@@ -251,7 +252,25 @@
 
     function createCourse(event) {
         event.preventDefault();
-        alert("Course created successfully!");
+        const courseId = document.getElementById('courseId').value;
+        const courseName = document.getElementById('courseName').value;
+        const courseDescription = document.getElementById('courseDescription').value;
+        const instructor = document.getElementById('instructor').value;
+
+        // Display course details
+        const messageDiv = document.getElementById('courseMessage');
+        messageDiv.innerHTML = `
+            <h4>Course Created Successfully!</h4>
+            <p><strong>Course ID:</strong> ${courseId}</p>
+            <p><strong>Course Name:</strong> ${courseName}</p>
+            <p><strong>Description:</strong> ${courseDescription}</p>
+            <p><strong>Instructor:</strong> ${instructor}</p>
+            <p><strong>Created At:</strong> ${new Date().toLocaleString()}</p>
+        `;
+        messageDiv.style.display = 'block';
+        
+        // Reset the form
+        document.getElementById('courseForm').reset();
     }
 
     function deleteCourse() {
@@ -288,7 +307,6 @@
         });
     }
 
-    document.getElementById('courseId').value = 'C123';
     document.getElementById('createdAt').innerText = new Date().toLocaleString();
     document.getElementById('updatedAt').innerText = new Date().toLocaleString();
 </script>
