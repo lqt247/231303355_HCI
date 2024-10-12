@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Course Management System</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css"> 
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -101,7 +101,7 @@
 <body>
 
 <header>
-    <h1>Course Management System</h1>
+    <h1>Welcome</h1>
 </header>
 
 <nav>
@@ -136,7 +136,7 @@
                 <button class="tablinks" onclick="openLab(event, 'lab4Content')">Lab 4</button>
             </div>
 
-            <div id="lab1Content" class="tabcontent">
+            <div id="lab1Content" class="tabcontent" style="display:none;">
                 <h3>User Interface Design for Course Management</h3>
                 <form id="courseForm" onsubmit="return createCourse(event)">
                     <div class="course-field">
@@ -168,7 +168,7 @@
                 </form>
             </div>
 
-            <div id="lab2Content" class="tabcontent">
+            <div id="lab2Content" class="tabcontent" style="display:none;">
                 <h3>Authentication</h3>
                 <form id="loginForm" onsubmit="return loginUser(event)">
                     <div class="course-field">
@@ -181,16 +181,15 @@
                     </div>
                     <button type="submit">Login</button>
                     <a href="#" style="display: block; margin-top: 10px;">Forgot Password?</a>
-                </form>
-                <p style="margin-top: 20px;">Simple, clean, and secure login screen.</p>
+                </form>              
             </div>
 
-            <div id="lab3Content" class="tabcontent">
+            <div id="lab3Content" class="tabcontent" style="display:none;">
                 <h3>Lab 3</h3>
                 <p>This lab is currently empty and can be updated later.</p>
             </div>
 
-            <div id="lab4Content" class="tabcontent">
+            <div id="lab4Content" class="tabcontent" style="display:none;">
                 <h3>Lab 4</h3>
                 <p>This lab is currently empty and can be updated later.</p>
             </div>
@@ -245,13 +244,13 @@
         const tablinks = document.getElementsByClassName("tablinks");
         Array.from(tablinks).forEach(link => link.classList.remove("active"));
 
-        document.getElementById(labName).style.display = "block";
+        const selectedLab = document.getElementById(labName);
+        selectedLab.style.display = "block";
         evt.currentTarget.classList.add("active");
     }
 
     function createCourse(event) {
         event.preventDefault();
-        // Logic for creating a course
         alert("Course created successfully!");
     }
 
@@ -263,7 +262,6 @@
 
     function loginUser(event) {
         event.preventDefault();
-        // Logic for authenticating a user
         document.getElementById('dashboardLink').style.display = 'block';
         showSection('dashboard', document.getElementById('dashboardLink'));
     }
@@ -290,8 +288,7 @@
         });
     }
 
-    // Auto-generate values for demo purposes
-    document.getElementById('courseId').value = 'C123'; // Example auto-generated Course ID
+    document.getElementById('courseId').value = 'C123';
     document.getElementById('createdAt').innerText = new Date().toLocaleString();
     document.getElementById('updatedAt').innerText = new Date().toLocaleString();
 </script>
