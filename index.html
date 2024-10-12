@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -69,7 +69,6 @@
             background-color: #4CAF50; 
             color: white; 
         }
-        /* Additional styling for forms and buttons */
         input[type="text"], input[type="password"], input[type="email"], textarea, select {
             width: 100%;
             padding: 10px;
@@ -96,6 +95,48 @@
             background-color: #f9f9f9;
             cursor: not-allowed;
         }
+
+        /* Material grid styling */
+        .material-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 items per row */
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .material {
+            background-color: #2e7d32; /* Dark green */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            color: white;
+        }
+
+        .icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .material h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .view-button {
+            padding: 10px 20px;
+            background-color: #66bb6a; /* Lighter green */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .view-button:hover {
+            background-color: #43a047; /* Slightly darker green */
+        }
+
     </style>
 </head>
 <body>
@@ -130,8 +171,8 @@
         <div class="labs">
             <h2>Lab Exercises</h2>
             <div class="tab">
-                <button class="tablinks" onclick="openLab(event, 'lab1Content')">Lab 1: UI Design</button>
-                <button class="tablinks" onclick="openLab(event, 'lab2Content')">Lab 2: Authentication</button>
+                <button class="tablinks" onclick="openLab(event, 'lab1Content')">Lab 1</button>
+                <button class="tablinks" onclick="openLab(event, 'lab2Content')">Lab 2</button>
                 <button class="tablinks" onclick="openLab(event, 'lab3Content')">Lab 3</button>
                 <button class="tablinks" onclick="openLab(event, 'lab4Content')">Lab 4</button>
             </div>
@@ -186,70 +227,85 @@
             </div>
 
             <div id="lab3Content" class="tabcontent" style="display:none;">
-                <h3>Lab 3</h3>
-                <p>This lab is currently empty and can be updated later.</p>
+                <h3>Lab 3: Available Materials</h3>
+                <div class="material-grid">
+                    <div class="material">
+                        <div class="icon">📘</div>
+                        <h2>All about Django Python</h2>
+                        <button class="view-button" onclick="viewMaterial('Django Python')">View Materials</button>
+                    </div>
+                    <div class="material">
+                        <div class="icon">📘</div>
+                        <h2>Data Structures</h2>
+                        <button class="view-button" onclick="viewMaterial('Data Structures')">View Materials</button>
+                    </div>
+                    <div class="material">
+                        <div class="icon">📘</div>
+                        <h2>Hibernate</h2>
+                        <button class="view-button" onclick="viewMaterial('Hibernate')">View Materials</button>
+                    </div>
+                    <div class="material">
+                        <div class="icon">📘</div>
+                        <h2>Java Mock Project</h2>
+                        <button class="view-button" onclick="viewMaterial('Java Mock Project')">View Materials</button>
+                    </div>
+                    <div class="material">
+                        <div class="icon">📘</div>
+                        <h2>Java Programming Language</h2>
+                        <button class="view-button" onclick="viewMaterial('Java Programming Language')">View Materials</button>
+                    </div>
+                    <div class="material">
+                        <div class="icon">📘</div>
+                        <h2>Java Spring Framework</h2>
+                        <button class="view-button" onclick="viewMaterial('Java Spring Framework')">View Materials</button>
+                    </div>
+                </div>
             </div>
 
             <div id="lab4Content" class="tabcontent" style="display:none;">
-                <h3>Lab 4</h3>
-                <p>This lab is currently empty and can be updated later.</p>
+                <h3>Lab 4: TBD</h3>
             </div>
         </div>
     </div>
 
-    <div id="dashboard" class="section" style="display:none;">
+    <div id="dashboard" class="dashboard" style="display:none;">
         <h2>Dashboard</h2>
-        <div id="exerciseContainer">
-            <h3>Available Exercises</h3>
-            <div>
-                <label for="languageFilter">Filter by Language:</label>
-                <select id="languageFilter" onchange="filterExercises()">
-                    <option value="all">All</option>
-                    <option value="C">C</option>
-                    <option value="Python">Python</option>
-                    <option value="Java">Java</option>
-                </select>
-            </div>
-            <div id="exercises">
-                <!-- Exercises will be dynamically populated here -->
-            </div>
-        </div>
+        <p>This is your personalized dashboard. Here you will see the overview of your progress.</p>
     </div>
 </div>
 
 <script>
-    const exercises = [
-        { title: "Exercise 1", description: "Basic C program", language: "C", difficulty: "Easy", status: "Not Started" },
-        { title: "Exercise 2", description: "Python Data Structures", language: "Python", difficulty: "Medium", status: "In Progress" },
-        { title: "Exercise 3", description: "Java Basics", language: "Java", difficulty: "Easy", status: "Completed" }
-    ];
-
+    // Function to show/hide different sections
     function showSection(section, link) {
         const sections = document.querySelectorAll('.section');
         sections.forEach(sec => sec.style.display = 'none');
+        
         document.getElementById(section).style.display = 'block';
 
-        const navLinks = document.querySelectorAll('nav a');
-        navLinks.forEach(nav => nav.classList.remove('active'));
+        const links = document.querySelectorAll('nav a');
+        links.forEach(lnk => lnk.classList.remove('active'));
+        
         link.classList.add('active');
-
-        if (section === 'dashboard') {
-            populateExercises();
-        }
     }
 
-    function openLab(evt, labName) {
-        const tabcontent = document.getElementsByClassName("tabcontent");
-        Array.from(tabcontent).forEach(tab => tab.style.display = "none");
+    // Lab tab functionality
+    function openLab(evt, labContentId) {
+        const tabcontents = document.querySelectorAll('.tabcontent');
+        tabcontents.forEach(tab => tab.style.display = 'none');
 
-        const tablinks = document.getElementsByClassName("tablinks");
-        Array.from(tablinks).forEach(link => link.classList.remove("active"));
+        const tablinks = document.querySelectorAll('.tab button');
+        tablinks.forEach(tab => tab.classList.remove('active'));
 
-        const selectedLab = document.getElementById(labName);
-        selectedLab.style.display = "block";
-        evt.currentTarget.classList.add("active");
+        document.getElementById(labContentId).style.display = 'block';
+        evt.currentTarget.classList.add('active');
     }
 
+    // Function to show materials for lab3
+    function viewMaterial(materialName) {
+        alert("You clicked to view materials for " + materialName);
+    }
+
+    // Example function for Lab 1 form submission
     function createCourse(event) {
         event.preventDefault();
         const courseId = document.getElementById('courseId').value;
@@ -257,58 +313,35 @@
         const courseDescription = document.getElementById('courseDescription').value;
         const instructor = document.getElementById('instructor').value;
 
-        // Display course details
-        const messageDiv = document.getElementById('courseMessage');
-        messageDiv.innerHTML = `
-            <h4>Course Created Successfully!</h4>
-            <p><strong>Course ID:</strong> ${courseId}</p>
-            <p><strong>Course Name:</strong> ${courseName}</p>
-            <p><strong>Description:</strong> ${courseDescription}</p>
-            <p><strong>Instructor:</strong> ${instructor}</p>
-            <p><strong>Created At:</strong> ${new Date().toLocaleString()}</p>
-        `;
-        messageDiv.style.display = 'block';
-        
-        // Reset the form
-        document.getElementById('courseForm').reset();
+        const createdAt = new Date().toLocaleString();
+        const updatedAt = new Date().toLocaleString();
+
+        document.getElementById('createdAt').innerText = createdAt;
+        document.getElementById('updatedAt').innerText = updatedAt;
+
+        document.getElementById('courseMessage').style.display = 'block';
+        document.getElementById('courseMessage').innerText = `Course created: ${courseName} by Instructor ${instructor}`;
+
+        return false;
     }
 
     function deleteCourse() {
-        if (confirm("Are you sure you want to delete this course?")) {
-            alert("Course deleted.");
+        if (confirm('Are you sure you want to delete the course?')) {
+            document.getElementById('courseForm').reset();
+            document.getElementById('courseMessage').style.display = 'none';
         }
     }
 
+    // Example login function for Lab 2
     function loginUser(event) {
         event.preventDefault();
-        document.getElementById('dashboardLink').style.display = 'block';
-        showSection('dashboard', document.getElementById('dashboardLink'));
-    }
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
 
-    function populateExercises() {
-        const exercisesDiv = document.getElementById('exercises');
-        exercisesDiv.innerHTML = '';
-        exercises.forEach(exercise => {
-            const div = document.createElement('div');
-            div.innerHTML = `<strong>${exercise.title}</strong> - ${exercise.description} (${exercise.language}, ${exercise.difficulty}) - Status: ${exercise.status}`;
-            exercisesDiv.appendChild(div);
-        });
+        alert(`Logging in as: ${username}`);
+        document.getElementById('dashboardLink').style.display = 'inline-block';
+        return false;
     }
-
-    function filterExercises() {
-        const filter = document.getElementById('languageFilter').value;
-        const exercisesDiv = document.getElementById('exercises');
-        exercisesDiv.innerHTML = '';
-        const filteredExercises = exercises.filter(ex => filter === 'all' || ex.language === filter);
-        filteredExercises.forEach(exercise => {
-            const div = document.createElement('div');
-            div.innerHTML = `<strong>${exercise.title}</strong> - ${exercise.description} (${exercise.language}, ${exercise.difficulty}) - Status: ${exercise.status}`;
-            exercisesDiv.appendChild(div);
-        });
-    }
-
-    document.getElementById('createdAt').innerText = new Date().toLocaleString();
-    document.getElementById('updatedAt').innerText = new Date().toLocaleString();
 </script>
 
 </body>
