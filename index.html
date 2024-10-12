@@ -1,22 +1,23 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Course Management System</title>
-    <link rel="stylesheet" href="styles.css"> 
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             background-color: #f4f4f4;
         }
+
         header {
-            background-color: #4CAF50; 
+            background-color: #4CAF50;
             color: white;
             padding: 1rem;
             text-align: center;
         }
+
         nav {
             background-color: #333;
             color: white;
@@ -26,6 +27,7 @@
             top: 0;
             z-index: 1000;
         }
+
         nav a {
             color: white;
             margin: 0 15px;
@@ -34,27 +36,28 @@
             border-radius: 4px;
             transition: background-color 0.3s;
         }
+
         nav a.active {
-            background-color: #4CAF50; 
+            background-color: #4CAF50;
         }
+
         .container {
             padding: 20px;
         }
-        .section, .tabcontent, .dashboard {
-            background: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            margin: 20px 0;
+
+        .section {
+            display: none;
         }
+
         .tab {
-            display: flex; 
+            display: flex;
             border: 1px solid #ccc;
-            background-color: #e7e7e7; 
+            background-color: #e7e7e7;
             margin: 20px 0;
         }
+
         .tab button {
-            flex: 1; 
+            flex: 1;
             padding: 10px;
             border: none;
             outline: none;
@@ -62,44 +65,28 @@
             transition: background-color 0.3s;
             font-size: 16px;
         }
+
         .tab button:hover {
-            background-color: #ddd; 
-        }
-        .tab button.active {
-            background-color: #4CAF50; 
-            color: white; 
-        }
-        input[type="text"], input[type="password"], input[type="email"], textarea, select {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        .course-field {
-            margin-bottom: 20px;
-        }
-        .readonly {
-            background-color: #f9f9f9;
-            cursor: not-allowed;
+            background-color: #ddd;
         }
 
-        /* Material grid styling */
+        .tab button.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .tabcontent {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+            display: none;
+        }
+
         .material-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 items per row */
+            grid-template-columns: repeat(3, 1fr);
             gap: 20px;
             margin-top: 20px;
         }
@@ -111,6 +98,14 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             text-align: center;
             color: white;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        /* Hover effect for materials */
+        .material:hover {
+            transform: scale(1.05); /* Slightly increase size */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
         }
 
         .icon {
@@ -125,7 +120,7 @@
 
         .view-button {
             padding: 10px 20px;
-            background-color: #66bb6a; /* Lighter green */
+            background-color: #66bb6a;
             color: white;
             border: none;
             border-radius: 5px;
@@ -134,9 +129,8 @@
         }
 
         .view-button:hover {
-            background-color: #43a047; /* Slightly darker green */
+            background-color: #43a047;
         }
-
     </style>
 </head>
 <body>
@@ -146,201 +140,102 @@
 </header>
 
 <nav>
-    <a href="#home" onclick="showSection('home', this)">Home</a>
+    <a href="#home" onclick="showSection('home', this)" class="active">Home</a>
     <a href="#about" onclick="showSection('about', this)">About</a>
     <a href="#labs" onclick="showSection('labs', this)">Labs</a>
-    <a href="#dashboard" id="dashboardLink" onclick="showSection('dashboard', this)" style="display:none;">Dashboard</a>
 </nav>
 
 <div class="container">
-    <div id="home" class="section">
+    <div id="home" class="section" style="display: block;">
         <div class="welcome">
             <h2>Welcome to Your Personal Course Management System!</h2>
             <p>Hi, I'm Lê Quang Trường! This is your dedicated space for managing your courses.</p>
         </div>
     </div>
 
-    <div id="about" class="section" style="display:none;">
+    <div id="about" class="section">
         <div class="about">
             <h2>About Me</h2>
-            <p class="bold">Lê Quang Trường - 23130355 - DH23DTB</p>
+            <p>Lê Quang Trường - 23130355 - DH23DTB</p>
         </div>
     </div>
 
-    <div id="labs" class="section" style="display:none;">
+    <div id="labs" class="section">
         <div class="labs">
             <h2>Lab Exercises</h2>
             <div class="tab">
-                <button class="tablinks" onclick="openLab(event, 'lab1Content')">Lab 1</button>
-                <button class="tablinks" onclick="openLab(event, 'lab2Content')">Lab 2</button>
-                <button class="tablinks" onclick="openLab(event, 'lab3Content')">Lab 3</button>
+                <button class="tablinks" onclick="openLab(event, 'lab1Content')">Lab 1: UI Design</button>
+                <button class="tablinks" onclick="openLab(event, 'lab2Content')">Lab 2: Authentication</button>
+                <button class="tablinks active" onclick="openLab(event, 'lab3Content')">Lab 3</button>
                 <button class="tablinks" onclick="openLab(event, 'lab4Content')">Lab 4</button>
             </div>
 
-            <div id="lab1Content" class="tabcontent" style="display:none;">
-                <h3>Lab 1: User Interface Design for Course Management</h3>
-                <form id="courseForm" onsubmit="return createCourse(event)">
-                    <div class="course-field">
-                        <label for="courseId">Course ID:</label>
-                        <input type="text" id="courseId" name="courseId" required>
-                    </div>
-                    <div class="course-field">
-                        <label for="courseName">Course Name:</label>
-                        <input type="text" id="courseName" name="courseName" required maxlength="255">
-                    </div>
-                    <div class="course-field">
-                        <label for="courseDescription">Course Description:</label>
-                        <textarea id="courseDescription" name="courseDescription" rows="4" required></textarea>
-                    </div>
-                    <div class="course-field">
-                        <label for="instructor">Instructor:</label>
-                        <select id="instructor" name="instructor" required>
-                            <option value="">Select an instructor</option>
-                            <option value="1">Instructor A</option>
-                            <option value="2">Instructor B</option>
-                        </select>
-                    </div>
-                    <div class="course-details">
-                        <p>Created At: <span id="createdAt"></span></p>
-                        <p>Last Updated: <span id="updatedAt"></span></p>
-                    </div>
-                    <button type="submit">Create Course</button>
-                    <button type="button" onclick="deleteCourse()">Delete Course</button>
-                </form>
-                <div id="courseMessage" style="margin-top: 20px; display:none;"></div>
-            </div>
-
-            <div id="lab2Content" class="tabcontent" style="display:none;">
-                <h3>Lab 2: Authentication</h3>
-                <form id="loginForm" onsubmit="return loginUser(event)">
-                    <div class="course-field">
-                        <label for="username">Username/Email:</label>
-                        <input type="text" id="username" name="username" required>
-                    </div>
-                    <div class="course-field">
-                        <label for="password">Password:</label>
-                        <input type="password" id="password" name="password" required>
-                    </div>
-                    <button type="submit">Login</button>
-                    <a href="#" style="display: block; margin-top: 10px;">Forgot Password?</a>
-                </form>              
-            </div>
-
-            <div id="lab3Content" class="tabcontent" style="display:none;">
-                <h3>Lab 3: Available Materials</h3>
+            <div id="lab3Content" class="tabcontent" style="display: block;">
+                <h3>Lab 3 - Available Materials</h3>
                 <div class="material-grid">
                     <div class="material">
                         <div class="icon">📘</div>
-                        <h2>All about Django Python</h2>
-                        <button class="view-button" onclick="viewMaterial('Django Python')">View Materials</button>
+                        <h2>Material 1</h2>
+                        <p>Description of Material 1.</p>
+                        <button class="view-button">View Material</button>
+                    </div>
+                    <div class="material">
+                        <div class="icon">📗</div>
+                        <h2>Material 2</h2>
+                        <p>Description of Material 2.</p>
+                        <button class="view-button">View Material</button>
+                    </div>
+                    <div class="material">
+                        <div class="icon">📙</div>
+                        <h2>Material 3</h2>
+                        <p>Description of Material 3.</p>
+                        <button class="view-button">View Material</button>
                     </div>
                     <div class="material">
                         <div class="icon">📘</div>
-                        <h2>Data Structures</h2>
-                        <button class="view-button" onclick="viewMaterial('Data Structures')">View Materials</button>
+                        <h2>Material 4</h2>
+                        <p>Description of Material 4.</p>
+                        <button class="view-button">View Material</button>
                     </div>
                     <div class="material">
-                        <div class="icon">📘</div>
-                        <h2>Hibernate</h2>
-                        <button class="view-button" onclick="viewMaterial('Hibernate')">View Materials</button>
+                        <div class="icon">📗</div>
+                        <h2>Material 5</h2>
+                        <p>Description of Material 5.</p>
+                        <button class="view-button">View Material</button>
                     </div>
                     <div class="material">
-                        <div class="icon">📘</div>
-                        <h2>Java Mock Project</h2>
-                        <button class="view-button" onclick="viewMaterial('Java Mock Project')">View Materials</button>
-                    </div>
-                    <div class="material">
-                        <div class="icon">📘</div>
-                        <h2>Java Programming Language</h2>
-                        <button class="view-button" onclick="viewMaterial('Java Programming Language')">View Materials</button>
-                    </div>
-                    <div class="material">
-                        <div class="icon">📘</div>
-                        <h2>Java Spring Framework</h2>
-                        <button class="view-button" onclick="viewMaterial('Java Spring Framework')">View Materials</button>
+                        <div class="icon">📙</div>
+                        <h2>Material 6</h2>
+                        <p>Description of Material 6.</p>
+                        <button class="view-button">View Material</button>
                     </div>
                 </div>
             </div>
-
-            <div id="lab4Content" class="tabcontent" style="display:none;">
-                <h3>Lab 4: TBD</h3>
-            </div>
         </div>
-    </div>
-
-    <div id="dashboard" class="dashboard" style="display:none;">
-        <h2>Dashboard</h2>
-        <p>This is your personalized dashboard. Here you will see the overview of your progress.</p>
     </div>
 </div>
 
 <script>
-    // Function to show/hide different sections
-    function showSection(section, link) {
+    function showSection(sectionId, link) {
         const sections = document.querySelectorAll('.section');
-        sections.forEach(sec => sec.style.display = 'none');
-        
-        document.getElementById(section).style.display = 'block';
+        sections.forEach(section => section.style.display = 'none');
+        document.getElementById(sectionId).style.display = 'block';
 
-        const links = document.querySelectorAll('nav a');
-        links.forEach(lnk => lnk.classList.remove('active'));
-        
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(nav => nav.classList.remove('active'));
         link.classList.add('active');
     }
 
-    // Lab tab functionality
-    function openLab(evt, labContentId) {
-        const tabcontents = document.querySelectorAll('.tabcontent');
-        tabcontents.forEach(tab => tab.style.display = 'none');
+    function openLab(evt, labName) {
+        const tabcontent = document.getElementsByClassName("tabcontent");
+        Array.from(tabcontent).forEach(tab => tab.style.display = "none");
 
-        const tablinks = document.querySelectorAll('.tab button');
-        tablinks.forEach(tab => tab.classList.remove('active'));
+        const tablinks = document.getElementsByClassName("tablinks");
+        Array.from(tablinks).forEach(link => link.classList.remove("active"));
 
-        document.getElementById(labContentId).style.display = 'block';
-        evt.currentTarget.classList.add('active');
-    }
-
-    // Function to show materials for lab3
-    function viewMaterial(materialName) {
-        alert("You clicked to view materials for " + materialName);
-    }
-
-    // Example function for Lab 1 form submission
-    function createCourse(event) {
-        event.preventDefault();
-        const courseId = document.getElementById('courseId').value;
-        const courseName = document.getElementById('courseName').value;
-        const courseDescription = document.getElementById('courseDescription').value;
-        const instructor = document.getElementById('instructor').value;
-
-        const createdAt = new Date().toLocaleString();
-        const updatedAt = new Date().toLocaleString();
-
-        document.getElementById('createdAt').innerText = createdAt;
-        document.getElementById('updatedAt').innerText = updatedAt;
-
-        document.getElementById('courseMessage').style.display = 'block';
-        document.getElementById('courseMessage').innerText = `Course created: ${courseName} by Instructor ${instructor}`;
-
-        return false;
-    }
-
-    function deleteCourse() {
-        if (confirm('Are you sure you want to delete the course?')) {
-            document.getElementById('courseForm').reset();
-            document.getElementById('courseMessage').style.display = 'none';
-        }
-    }
-
-    // Example login function for Lab 2
-    function loginUser(event) {
-        event.preventDefault();
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
-
-        alert(`Logging in as: ${username}`);
-        document.getElementById('dashboardLink').style.display = 'inline-block';
-        return false;
+        const selectedLab = document.getElementById(labName);
+        selectedLab.style.display = "block";
+        evt.currentTarget.classList.add("active");
     }
 </script>
 
