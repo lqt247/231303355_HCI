@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Learning</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        background-color: #f8f9fa;
+        color: #333;
+        padding: 20px;
+      }
+
+      /* Container */
+      .container {
+        max-width: 1200px; /* Chiều rộng tối đa */
+        margin: 0 auto; /* Căn giữa */
+        padding: 20px;
+      }
+
+      /* Header */
+      header {
+        text-align: left;
+        margin-bottom: 20px;
+        background-color: #3a3d4d; /* Màu nền cho phần tiêu đề */
+        color: #f5f7f7; /* Màu chữ */
+        padding: 20px;
+        border-radius: 8px;
+      }
+
+      header h1 {
+        font-size: 2em;
+        color: #f5f7f7; /* Màu chữ h1 */
+        display: inline-block;
+      }
+
+      header p {
+        color: #6c757d;
+        font-size: 0.9em;
+        display: inline-block;
+        margin-left: 15px;
+      }
+
+      header nav {
+        margin-top: 10px;
+      }
+
+      header nav a {
+        margin-right: 15px;
+        color: #f5f7f7; /* Màu chữ các tab */
+        text-decoration: none;
+        font-size: 0.9em;
+        cursor: pointer;
+      }
+
+      header nav a.active {
+        font-weight: bold;
+        border-bottom: 2px solid #007bff; /* Highlight active tab */
+      }
+
+      /* Filter section */
+      .filter {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin: 20px 0;
+      }
+
+      .filter select,
+      .filter input[type="search"] {
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+
+      /* Courses grid */
+          .courses {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+      /* Course card */
+      .course-card {
+        background-color: #fff;
+        padding: 15px;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: left;
+      }
+
+      .course-card img {
+        width: 25%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 5px;
+      }
+
+      .course-card h3 {
+        font-size: 1em;
+        margin: 10px 0;
+      }
+
+      .course-card p {
+        font-size: 0.9em;
+        color: #28a745;
+        font-weight: bold;
+      }
+
+      .course-card .instructor {
+        font-size: 0.8em;
+        color: #6c757d;
+      }
+
+      .course-card .rating {
+        display: flex;
+        align-items: center;
+        margin-top: 5px;
+      }
+
+      .course-card .rating span {
+        color: #ffb400;
+        font-size: 1.2em;
+      }
+
+      .course-card .rating p {
+        font-size: 0.9em;
+        margin-left: 5px;
+        color: #007bff;
+        cursor: pointer;
+      }
+
+      /* Tab content */
+      .tab-content {
+        display: none;
+      }
+
+      .tab-content.active {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>My learning</h1>
+        <p>87hr 36min watched</p>
+        <nav>
+          <a
+            href="#"
+            class="tab-link active"
+            onclick="showTab(event, 'allCourses')"
+            >All courses</a
+          >
+          <a href="#" class="tab-link" onclick="showTab(event, 'learningPaths')"
+            >Learning paths</a
+          >
+          <a
+            href="#"
+            class="tab-link"
+            onclick="showTab(event, 'certifications')"
+            >Certifications</a
+          >
+          <a href="#" class="tab-link" onclick="showTab(event, 'archived')"
+            >Archived</a
+          >
+          <a href="#" class="tab-link" onclick="showTab(event, 'learningTools')"
+            >Learning tools</a
+          >
+        </nav>
+      </header>
+
+
+      <div class="courses tab-content active" id="allCourses">
+        <div class="course-card">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWAYtmaKCk82rEfnNdPLivHW6IHAgxPJxL0w&s"
+            alt="FPT_ISMS"
+          />
+          <h3>ALLEXCEED VIETNAM Refresh Training 2024</h3>
+          <p>100% complete</p>
+          <div class="instructor">FSOFT Content Development</div>
+          <div class="rating">
+            <span>★★★★★</span>
+            <p>Leave a rating</p>
+          </div>
+        </div>
+        <div class="course-card">
+          <img
+            src="https://img-c.udemycdn.com/course/750x422/4695284_83ea_6.jpg"
+            alt="Spring Boot"
+          />
+          <h3>The Complete Spring Boot Development Bootcamp</h3>
+          <p>100% complete</p>
+          <div class="instructor">Learn The Part Inc., Rayan Slim</div>
+          <div class="rating">
+            <span>★★★★★</span>
+            <p>Leave a rating</p>
+          </div>
+        </div>
+        <div class="course-card">
+          <img
+            src="https://img-c.udemycdn.com/course/750x422/2874308_763d_6.jpg"
+            alt="MuleSoft"
+          />
+          <h3>MuleSoft 4.X Complete Guide For Beginners - Hands On...</h3>
+          <p>1% complete</p>
+          <div class="instructor">Chinna Reddy</div>
+          <div class="rating">
+            <span>☆☆☆☆☆</span>
+            <p>Leave a rating</p>
+          </div>
+        </div>
+        <div class="course-card">
+          <img
+            src="https://i.ytimg.com/vi/om59cwR7psI/maxresdefault.jpg"
+            alt="Make a 2D Game"
+          />
+          <h3>How To Make A 2D Game In Java</h3>
+          <p>15% complete</p>
+          <div class="instructor">Mister Rabiey</div>
+          <div class="rating">
+            <span>★★★★★</span>
+            <p>Your rating</p>
+          </div>
+        </div>
+        <!-- Add more course cards as needed -->
+      </div>
+
+      <!-- Add content for other tabs -->
+      <div class="tab-content" id="learningPaths">
+        <h2>Learning Paths</h2>
+        <p>No learning paths available.</p>
+      </div>
+      <div class="tab-content" id="certifications">
+        <h2>Certifications</h2>
+        <p>No certifications available.</p>
+      </div>
+      <div class="tab-content" id="archived">
+        <h2>Archived</h2>
+        <p>No archived courses available.</p>
+      </div>
+      <div class="tab-content" id="learningTools">
+        <h2>Learning Tools</h2>
+        <p>No learning tools available.</p>
+      </div>
+    </div>
+
+    <script>
+      function showTab(event, tabId) {
+        const tabContents = document.querySelectorAll(".tab-content");
+        const tabLinks = document.querySelectorAll(".tab-link");
+
+        // Hide all tab contents and remove active class from links
+        tabContents.forEach((content) => {
+          content.classList.remove("active");
+        });
+        tabLinks.forEach((link) => {
+          link.classList.remove("active");
+        });
+
+        // Show the clicked tab content and add active class to the link
+        document.getElementById(tabId).classList.add("active");
+        event.currentTarget.classList.add("active");
+      }
+    </script>
+  </body>
+</html>
