@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Development Courses</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f5f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+        }
+
+        .category-list {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            margin-bottom: 20px;
+        }
+
+        .category {
+            background-color: #eaeef1;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 15px;
+            cursor: pointer;
+            font-size: 16px;
+            white-space: nowrap;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .category.active {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .category:hover {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .course-card {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            transition: transform 0.3s;
+        }
+
+        .course-card:hover {
+            transform: scale(1.05);
+        }
+
+        .course-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .course-info {
+            padding: 15px;
+        }
+
+        .course-info h3 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .course-info p {
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .rating {
+            font-size: 14px;
+            color: #F4FF2D;
+        }
+
+        .price {
+            font-weight: bold;
+            color: #FFDB57;
+        }
+
+        .badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #ffd700;
+            color: #333;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+
+        .show-more {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            margin: 20px 0;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+
+        .show-more:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="category-list">
+            <button class="category active">Web Development</button>
+            <button class="category">JavaScript</button>
+            <button class="category">React JS</button>
+            <button class="category">Angular</button>
+            <button class="category">Java</button>
+            <button class="category">Android Development</button>
+            <button class="category">iOS Development</button>
+            <button class="category">CSS</button>
+        </div>
+
+        <div class="course-grid">
+            <div class="course-card">
+                <img src="https://img-c.udemycdn.com/course/750x422/1565838_e54e_18.jpg" alt="The Complete 2024 Web Development Bootcamp">
+                <div class="course-info">
+                    <h3>The Complete 2024 Web Development Bootcamp</h3>
+                    <p>Dr. Angela Yu, Developer and Lead Instructor</p>
+                    <p class="rating">4.7 ★ (409,451)</p>
+                    <p class="price">₫1,699,000</p>
+                </div>
+                <span class="badge">Bestseller</span>
+            </div>
+
+            <div class="course-card">
+                <img src="https://img-c.udemycdn.com/course/750x422/625204_436a_3.jpg" alt="The Web Developer Bootcamp 2024">
+                <div class="course-info">
+                    <h3>The Web Developer Bootcamp 2024</h3>
+                    <p>Colt Steele</p>
+                    <p class="rating">4.7 ★ (276,674)</p>
+                    <p class="price">₫2,399,000</p>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <img src="https://img-c.udemycdn.com/course/750x422/965528_737d_7.jpg" alt="Web Development Masterclass - Online Certification Course">
+                <div class="course-info">
+                    <h3>Web Development Masterclass - Online Certification Course</h3>
+                    <p>YouAccel Training</p>
+                    <p class="rating">4.3 ★ (10,000)</p>
+                    <p class="price">₫1,499,000</p>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <img src="https://i.ytimg.com/vi/1RhQW_pMjBM/maxresdefault.jpg" alt="Practical Web Development: 22 Courses in 1">
+                <div class="course-info">
+                    <h3>Practical Web Development: 22 Courses in 1</h3>
+                    <p>Creative Online School</p>
+                    <p class="rating">4.2 ★ (4,353)</p>
+                    <p class="price">₫449,000</p>
+                </div>
+            </div>
+        </div>
+
+        <button class="show-more">Show all Web Development courses</button>
+    </div>
+</body>
+</html>
