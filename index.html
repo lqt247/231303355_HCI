@@ -302,7 +302,31 @@ body {
 .course-content ul li:last-child {
     border-bottom: none;
 }
+    .button-link {
+        display: inline-block;
+        padding: 10px 15px;
+        font-size: 14px;
+        color: #fff;
+        text-decoration: none;
+        background-color: #007bff;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        margin-top: 20px;
+    }
 
+    .button-link:hover {
+        background-color: #0056b3;
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+        transform: translateY(-2px);
+    }
+
+    .button-link:active {
+        background-color: #003d80;
+        transform: translateY(0);
+    }
 
 
     </style>
@@ -332,6 +356,7 @@ body {
         <div class="about">
             <h2>About Me</h2>
             <p class="bold">Lê Quang Trường - 23130355 - DH23DTB</p>
+		 <button class="button-link" onclick="window.location.href='result.html'">Result</button>
         </div>
     </div>
 
