@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .profile {
+            text-align: center;
+            padding: 20px;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .profile img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .profile h2 {
+            margin: 10px 0 5px;
+            font-size: 18px;
+        }
+
+        .profile p {
+            color: #888;
+            margin: 0;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #555;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .tab.active {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .content {
+            padding: 20px;
+            display: none;
+        }
+
+        .content.active {
+            display: block;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 20px 0 10px;
+            border-bottom: 1px solid #eaeaea;
+            padding-bottom: 5px;
+        }
+
+        .section-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .section-list li {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .result {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+.button-link {
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 14px;
+    color: #fff;
+    text-decoration: none;
+    background-color: #007bff;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.button-link:hover {
+    background-color: #0056b3;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+.button-link:active {
+    background-color: #003d80;
+    transform: translateY(0);
+}
+
+.section-list {
+    list-style: none;
+    padding: 0;
+}
+
+.section-list li {
+    margin: 10px 0;
+}
+
+.image-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.image-container img {
+    max-width: 100%;
+    max-height: 300px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: opacity 0.3s ease;
+}
+
+.hidden {
+    display: none;
+}
+
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Profile Section -->
+    <div class="profile">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEm6PLJe9kcUX4umLQ5m_YJNu5mBlsPA5v8g&s" alt="Profile Picture">
+        <h2>LÊ QUANG TRƯỜNG</h2>
+        <p>23130355</p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+        <div class="tab" data-tab="result">General</div>
+        <div class="tab active" data-tab="group-page">Group Page</div>
+        <div class="tab" data-tab="web-project">Web Project</div>
+    </div>
+
+    <!-- Group Page Content -->
+    <div class="content active" id="group-page">
+        <div class="section-title">Công việc thực hiện:</div>
+        <ul class="section-list">
+            <li>
+                <button class="button-link" onclick="showImage('contact-image')">1. CONTACT</button>
+            </li>
+            <li>
+                <button class="button-link" onclick="showImage('design-image')">2. Bản thiết kế trên giấy</button>
+            </li>
+            <li>
+                <button class="button-link" onclick="showImage('footer-image')">3. Footer</button>
+              
+            </li>
+             <button class="button-link" onclick="showImage('home-image')">4. Home_02 </button>
+          
+            </li>
+        </ul>
+
+        <!-- Image Section -->
+        <div id="image-container" class="image-container">
+            <img id="contact-image" src="image/contact.jpg" alt="Contact Image" class="hidden">            
+            <img id="design-image"  src="image/design.jpg" alt="Design Image" class="hidden">
+            <img id="footer-image"  src="image/footer.jpg" alt="Footer Image" class="hidden">
+             <img id="home-image"  src="image/home02.jpg" alt="Home Image" class="hidden">
+              
+        
+        </div>
+  <div class="section-title">Tự đánh giá:</div>
+        <ul>
+            <li>Mức độ đóng góp: 20%</li>
+            <li>Hoàn thiện: 90%</li>
+        </ul>
+    </div>
+
+   
+      
+    <!-- Web Project Content -->
+    <div class="content" id="web-project">
+        <div class="section-title">Công việc thực hiện:</div>
+        <ul class="section-list">
+            <li>
+                <button class="button-link" onclick="showImage('header-image')">1. Header TRANG THÔNG TIN</button>
+            </li>
+            <li>
+                <button class="button-link" onclick="showImage('web-footer-image')">2. Footer</button>
+            </li>
+        </ul>
+
+        <!-- Image Section -->
+        <div id="web-image-container" class="image-container">
+            <img id="header-image" src="image/headerWeb.jpg" alt="Header Image" class="hidden">
+            <img id="web-footer-image" src="image/footerWeb.jpg" alt="Web Footer Image" class="hidden">
+        </div>
+
+        <!-- Self-evaluation Section -->
+        <div class="section-title">Tự đánh giá:</div>
+        <ul>
+            <li>Mức độ đóng góp: 15%</li>
+            <li>Hoàn thiện: 80%</li>
+        </ul>
+    </div>
+
+    <!-- Result Content -->
+    <div class="content" id="result">
+        <div class="section-title">Chung:</div>
+        <ul>
+            <li>Hoàn thành: 100%</li>
+            <li>Web Project: 20%</li>
+            <li>Group Page: 20%</li>
+        </ul>
+
+        <!-- Self-evaluation Section -->
+        <div class="section-title">Tự đánh giá:</div>
+        <ul>
+            <li>Hoàn thành: 90%</li>
+            <li>Web Project: 15%</li>
+            <li>Group Page: 20%</li>
+        </ul>
+    
+   <div class="section-title">Đã học được: </div>
+        <ul>
+            <li>Sử dụng được HTML, CSS, JS: Trung Bình </li>
+           <li>Tìm hiểu công nghệ phần mền mới: Tốt </li>
+           <li>Làm việc nhóm: Tốt </li>
+          
+            
+        </ul>
+  <div class="section-title">Khó khăn: </div>
+        <ul>
+            <li>Thời gian đầu em thiếu thiết bị</li>
+        </div>
+      </div>
+
+
+    <script>
+        // Tab switching logic
+        const tabs = document.querySelectorAll('.tab');
+        const contents = document.querySelectorAll('.content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and contents
+                tabs.forEach(t => t.classList.remove('active'));
+                contents.forEach(c => c.classList.remove('active'));
+
+                // Add active class to the clicked tab and corresponding content
+                tab.classList.add('active');
+                const target = tab.getAttribute('data-tab');
+                document.getElementById(target).classList.add('active');
+            });
+        });
+      function showImage(imageId) {
+    // Ẩn tất cả các hình ảnh
+    const images = document.querySelectorAll('.image-container img');
+    images.forEach((img) => img.classList.add('hidden'));
+
+    // Hiển thị hình ảnh được chọn
+    const selectedImage = document.getElementById(imageId);
+    if (selectedImage) {
+        selectedImage.classList.remove('hidden');
+    }
+}
+
+    </script>
+</body>
+</html>
